@@ -18,49 +18,49 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CodePush from 'react-native-code-push';
-import AV from 'leancloud-storage';
-import Main from '../pages/Main';
-import Storage from '../utils/Storage';
-
-const typeIds = [0, 12, 9, 2];
+import { bindActionCreators } from 'redux';
+import Icon from 'react-native-vector-icons/Ionicons';
+import Main from '../pages/MainPage/Main';
+import * as readCreators from '../actions/read';
 
 class MainContainer extends React.Component {
-  componentDidMount() {
+  static navigationOptions = {
+    title: '首页',
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="md-home" size={25} color={tintColor} />
+    )
+  };
+
+  static componentDidMount() {
     CodePush.sync({
       deploymentKey: 'RGOUfyINiLicZnld67aD0nrbRvyLV1Ifekvul',
       updateDialog: {
         optionalIgnoreButtonLabel: '稍后',
         optionalInstallButtonLabel: '后台更新',
-        optionalUpdateMessage: 'Reading有新版本了，是否更新？',
+        optionalUpdateMessage: 'iReading有新版本了，是否更新？',
         title: '更新提示'
       },
       installMode: CodePush.InstallMode.ON_NEXT_RESTART
     });
-    AV.init({
-      appId: 'Tfi1z7dN9sjMwSul8sYaTEvg-gzGzoHsz',
-      appKey: '57qmeEJonefntNqRe17dAgi4'
-    });
-    Storage.get('isInit')
-      .then((isInit) => {
-        if (!isInit) {
-          Storage.save('typeIds', typeIds);
-          Storage.save('isInit', true);
-        }
-      });
   }
 
   render() {
-    return (
-      <Main {...this.props} />
-    );
+    return <Main {...this.props} />;
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   const { read } = state;
   return {
     read
   };
-}
+};
 
-export default connect(mapStateToProps)(MainContainer);
+const mapDispatchToProps = (dispatch) => {
+  const readActions = bindActionCreators(readCreators, dispatch);
+  return {
+    readActions
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);

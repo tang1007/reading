@@ -15,34 +15,28 @@
  * limitations under the License.
  *
  */
-import Toast from 'react-native-root-toast';
+import { Alert, ToastAndroid, Platform } from 'react-native';
 
-let toast;
-
-export function toastShort(content) {
-  if (toast !== undefined) {
-    Toast.hide(toast);
+const showShort = (content, isAlert) => {
+  if (!content) {
+    return;
   }
-  toast = Toast.show(content.toString(), {
-    duration: Toast.durations.SHORT,
-    position: Toast.positions.BOTTOM,
-    shadow: true,
-    animation: true,
-    hideOnPress: true,
-    delay: 0
-  });
-}
-
-export function toastLong(content) {
-  if (toast !== undefined) {
-    Toast.hide(toast);
+  if (isAlert || Platform.OS === 'ios') {
+    Alert.alert('提示', content.toString());
+  } else {
+    ToastAndroid.show(content.toString(), ToastAndroid.SHORT);
   }
-  toast = Toast.show(content.toString(), {
-    duration: Toast.durations.LONG,
-    position: Toast.positions.BOTTOM,
-    shadow: true,
-    animation: true,
-    hideOnPress: true,
-    delay: 0
-  });
-}
+};
+
+const showLong = (content, isAlert) => {
+  if (isAlert || Platform.OS === 'ios') {
+    Alert.alert('提示', content.toString());
+  } else {
+    ToastAndroid.show(content.toString(), ToastAndroid.LONG);
+  }
+};
+
+export default {
+  showShort,
+  showLong
+};

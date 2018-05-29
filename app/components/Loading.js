@@ -16,6 +16,7 @@
  *
  */
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   StyleSheet,
   Dimensions,
@@ -28,53 +29,31 @@ import {
 const SIZES = ['small', 'large'];
 
 const propTypes = {
-  visible: React.PropTypes.bool,
-  color: React.PropTypes.string,
-  size: React.PropTypes.oneOf(SIZES),
-  overlayColor: React.PropTypes.string,
-  onRequestClose: React.PropTypes.func
+  visible: PropTypes.bool,
+  color: PropTypes.string,
+  size: PropTypes.oneOf(SIZES),
+  overlayColor: PropTypes.string,
+  onRequestClose: PropTypes.func
 };
 
-class Loading extends React.Component {
-  renderLoading() {
-    return (
-      <View style={styles.loading}>
-        <ActivityIndicator
-          size={this.props.size}
-          color={this.props.color}
-        />
-        <Text style={styles.loadingText}>数据加载中...</Text>
-      </View>
-    );
-  }
-
-  render() {
-    if (!this.props.visible) {
-      return (
-        <View key={'spinner'} />
-      );
-    }
-    let spinner = (
-      <View
-        key={'spinner'}
-        style={styles.container}
-      >
-        <View style={[styles.background, { backgroundColor: this.props.overlayColor }]}>
-          {this.renderLoading()}
+const Loading = ({
+  visible, color, size, overlayColor, onRequestClose
+}) => (
+  <Modal visible={visible} transparent onRequestClose={onRequestClose}>
+    {visible ? (
+      <View key="spinner" style={styles.container}>
+        <View style={[styles.background, { backgroundColor: overlayColor }]}>
+          <View style={styles.loading}>
+            <ActivityIndicator size={size} color={color} />
+            <Text style={styles.loadingText}>数据加载中...</Text>
+          </View>
         </View>
       </View>
-    );
-    return (
-      <Modal
-        visible={this.props.visible}
-        transparent
-        onRequestClose={this.props.onRequestClose}
-      >
-        {spinner}
-      </Modal>
-    );
-  }
-}
+    ) : (
+      <View key="spinner" />
+    )}
+  </Modal>
+);
 
 const styles = StyleSheet.create({
   container: {

@@ -18,15 +18,25 @@ package com.reading;
 
 import android.app.Application;
 
+import com.facebook.infer.annotation.Assertions;
 import com.facebook.react.ReactApplication;
+import com.facebook.react.ReactInstanceManager;
+import com.facebook.react.ReactInstanceManagerBuilder;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
+import com.facebook.react.common.LifecycleState;
 import com.facebook.react.shell.MainReactPackage;
+import com.facebook.soloader.SoLoader;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.microsoft.codepush.react.CodePush;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.richardcao.exceptionsmanager.react.ExceptionsManager;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.theweflex.react.WeChatPackage;
 
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,14 +46,41 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        SoLoader.init(this, /* native exopackage */ false);
         if (!BuildConfig.DEBUG) {
             CrashReport.initCrashReport(getApplicationContext(), "900019562", false);
         }
     }
 
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+
         @Override
-        protected boolean getUseDeveloperSupport() {
+        protected ReactInstanceManager createReactInstanceManager() {
+            ReactInstanceManagerBuilder builder = ReactInstanceManager.builder()
+                    .setApplication(getApplication())
+                    .setJSMainModulePath(getJSMainModuleName())
+                    .setUseDeveloperSupport(getUseDeveloperSupport())
+                    .setRedBoxHandler(getRedBoxHandler())
+                    .setUIImplementationProvider(getUIImplementationProvider())
+                    .setInitialLifecycleState(LifecycleState.BEFORE_CREATE)
+                    .setNativeModuleCallExceptionHandler(
+                            new ReadingNativeModuleCallExceptionHandler());
+
+            for (ReactPackage reactPackage : getPackages()) {
+                builder.addPackage(reactPackage);
+            }
+
+            String jsBundleFile = getJSBundleFile();
+            if (jsBundleFile != null) {
+                builder.setJSBundleFile(jsBundleFile);
+            } else {
+                builder.setBundleAssetName(Assertions.assertNotNull(getBundleAssetName()));
+            }
+            return builder.build();
+        }
+
+        @Override
+        public boolean getUseDeveloperSupport() {
             return BuildConfig.DEBUG;
         }
 
@@ -54,12 +91,24 @@ public class MainApplication extends Application implements ReactApplication {
         }
 
         @Override
+        protected String getJSMainModuleName() {
+            return "index";
+        }
+
+        @Override
         protected List<ReactPackage> getPackages() {
-            return Arrays.<ReactPackage>asList(
+            List<ReactPackage> packages = Arrays.asList(
                     new MainReactPackage(),
+                    new SplashScreenReactPackage(),
                     new WeChatPackage(),
                     new CodePush(BuildConfig.CODEPUSH_KEY, MainApplication.this, BuildConfig.DEBUG),
-                    new RNDeviceInfo());
+                    new RNDeviceInfo(),
+                    new VectorIconsPackage());
+            ArrayList<ReactPackage> packageList = new ArrayList<>(packages);
+            if (!BuildConfig.DEBUG) {
+                packageList.add(new ExceptionsManager());
+            }
+            return packageList;
         }
     };
 

@@ -1,73 +1,96 @@
-# Reading
+# iReading
 
-![Reading_Logo](./Reading_Logo.png)
+![iReading_Logo](./Reading_Logo.png)
 
+[![Build Status](https://travis-ci.org/attentiveness/reading.svg?branch=master)](https://travis-ci.org/attentiveness/reading)
+[![Code Climate](https://codeclimate.com/github/attentiveness/reading/badges/gpa.svg)](https://codeclimate.com/github/attentiveness/reading)
 [![Join the chat at https://gitter.im/attentiveness/reading](https://badges.gitter.im/attentiveness/reading.svg)](https://gitter.im/attentiveness/reading)
 [![License Apache2.0](https://img.shields.io/hexpm/l/plug.svg)](https://raw.githubusercontent.com/attentiveness/reading/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/attentiveness/reading.svg?maxAge=2592000?style=flat-square)](https://github.com/attentiveness/reading/releases)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/attentiveness/reading/pulls)
 
-Reading App Write In React-Native（Studying and Programing）
+iReading App Write In React-Native（Studying and Programing）
 
-**Support: Android 4.1 (API 16)+    IOS(7.0+)**
+**Support: Android 4.1 (API 16)+   IOS(8.0+)**
 
 > No Profit, No Advertisement, Only Feelings
 
 ## Screenshot
 
-![Reading_Splash](./screenshot/Reading_Splash.jpg) ![Reading_Main](./screenshot/Reading_Main.jpg)
-![Reading_Drawer](./screenshot/Reading_Drawer.jpg) ![Reading_Article](./screenshot/Reading_Article.jpg)
-![Reading_Share](./screenshot/Reading_Share.jpg) ![Reading_About](./screenshot/Reading_About.jpg)
-![Reading_IOS_Main](./screenshot/Reading_IOS_Main.jpeg) ![Reading_IOS_Share](./screenshot/Reading_IOS_Share.jpeg)
+![iReading_Main](./screenshot/iReading_Main.png)
+![iReading_Article](./screenshot/iReading_Article.png)
+![iReading_Category](./screenshot/iReading_Category.png)
+![iReading_IOS_Main](./screenshot/iReading_iOS_Main.png)
+![iReading_IOS_Share](./screenshot/iReading_iOS_Share.png)
 
-## Download From Android Market
+## Download
 
-*From 360 Android Market:* [Download Reading](http://zhushou.360.cn/detail/index/soft_id/3217938?recrefer=SE_D_Reading)
+### β Version(master branch)
 
-*From Wandou Labs:* [Download Reading](http://www.wandoujia.com/apps/com.reading)
+*Android:* [Download iReading](http://fir.im/w7gu)
+
+### From Android Market(Old)
+
+*360 Android Market:* [Download iReading](http://zhushou.360.cn/detail/index/soft_id/3217938?recrefer=SE_D_Reading)
+
+*Wandou Labs:* [Download iReading](http://www.wandoujia.com/apps/com.reading)
+
+### From App Store(Old)
+
+[Download iReading](https://itunes.apple.com/cn/app/ireading/id1135411121?l=zh&ls=1&mt=8)
 
 ## Application Architecture
 
-* [Microsoft Code Push](https://github.com/Microsoft/react-native-code-push) for dynamic update
-* [Redux](https://github.com/reactjs/redux) is a predictable state container for reading app, together with [React Native](https://github.com/facebook/react-native)
-* [Mocha](https://mochajs.org/) for UT
-* [Enzyme](https://github.com/airbnb/enzyme) for testing UI components and mock
+- [Microsoft Code Push](https://github.com/Microsoft/react-native-code-push) for dynamic update.
+- [Redux](https://github.com/reactjs/redux) is a predictable state container for reading application, together with [React Native](https://github.com/facebook/react-native).
+- [Redux-Saga](https://github.com/yelouafi/redux-saga/) is a library that aims to make side effects in reading application easier and better.
+- [react-navigation](https://github.com/react-community/react-navigation) is an extensible yet easy-to-use navigation solution, can also be used across React and React Native projects allowing for a higher degree of shared code.
+- [Jest](https://facebook.github.io/jest/) for testing [React Native](https://github.com/facebook/react-native) components and UT.
+- [Eslint](https://github.com/eslint/eslint) is a tool for identifying and reporting on patterns found in reading application code.
+- [react-native-exceptions-manager](https://github.com/Richard-Cao/react-native-exceptions-manager) for handling crashes in release version.
 
 ## Development Workflow
 
 ### Step One
+
 ```
-npm install -g react-native-cli
+yarn(or npm) install -g react-native-cli
 ```
 ### Step Two
+
 ```
-npm install
+yarn(or npm) install
 ```
 ### Step Three
+
 ```
 react-native start
 ```
 ### Run Test
+
 ```
-npm test
+yarn(or npm) test
+```
+
+### Format Code
+
+```
+yarn(or npm run) format
+```
+
+### Run Lint
+
+```
+yarn(or npm run) lint
 ```
 
 ## Release Note
 
 [Reading Release Note](https://github.com/attentiveness/reading/releases)
 
-## OnLine Accident
-
-[Reading Online Accident](./Reading_OnLine_Accident.md)
-
-## Welcome
-
->* Star
->* Fork
->* PR
->* Issue
-
 ## Contributing
 
-For more information about contributing PRs and issues, see our [Contribution Guidelines](https://github.com/attentiveness/reading/blob/master/CONTRIBUTING.md).
+**For more information about contributing PRs and issues, see our [Contribution Guidelines](https://github.com/attentiveness/reading/blob/master/CONTRIBUTING.md).**
 
 ## License
 
